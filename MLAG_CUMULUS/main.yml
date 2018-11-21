@@ -1,0 +1,4 @@
+---
+- import_playbook: prep-config.yml
+- import_playbook: generate-config.yml 
+- import_playbook: pushconfig.yml

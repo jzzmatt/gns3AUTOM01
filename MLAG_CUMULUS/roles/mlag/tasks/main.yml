@@ -1,0 +1,23 @@
+---
+- name: SETUP MLAG 
+  nclu:
+      commit: true
+      description: "SETUP MLAG INTERFACES"
+      template: |
+          {% if interfaces.types.bond.peerlink is defined %}
+          {% for ports in interfaces.types.bond.peerlink %}
+          add bond peerlink bond slaves {{ ports }}
+          {% endfor %}
+          {% endif %}
+          {% if 'peerlink' in interfaces.types.bond.keys() %}
+          {% set mlaglink = 'peerlink' %}
+          {% set mlag = interfaces.types.mlag  %}
+          add interface {{ mlaglink }}.{{ mlag.id }} ip address {{ mlag.ip }}
+          add interface {{ mlaglink }}.{{ mlag.id }} clag peer-ip {{ mlag.peer }}
+          {% if mlag.master %}
+          add interface {{ mlaglink }}.{{ mlag.id }} clag priority {{ mlag.priority }}
+          {% endif %}
+          add interface {{ mlaglink }}.{{ mlag.id }} clag sys-mac {{ mlag.mac }}
+          add interface {{ mlaglink }}.{{ mlag.id }} clag backup-ip {{ mlag.backup }}
+
+          {% endif %}

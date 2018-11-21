@@ -1,0 +1,5 @@
+[core]
+cVX0[1:2] ansible_user=cumulus ansible_ssh_pass=CumulusLinux!
+
+[leaf]
+cVX0[3:4] ansible_user=cumulus ansible_ssh_pass=CumulusLinux!

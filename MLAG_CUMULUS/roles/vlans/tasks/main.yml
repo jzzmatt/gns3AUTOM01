@@ -1,0 +1,18 @@
+---
+- name: SETUP VLANS
+  nclu:
+     commit: true
+     description: "SETUP VLAN & SVI"
+     template: |
+          {% set vlan_list = (interfaces.types.vlans | map(attribute='id') | list) %}
+          add bridge bridge vids {{ vlan_list | join(',') }}
+          add bridge bridge vlan-aware
+          {% for vlan_id in vlan_list %}
+          add vlan {{ vlan_id }} vlan-id {{ vlan_id }}
+          add vlan {{ vlan_id }} vlan-raw-device bridge
+          {% endfor %}
+          {% for dict_lst in interfaces.types.vlans %}
+          {% set svi = (dict_lst.ip |string + '/' + dict_lst.subnet |string) %}
+          add vlan {{ dict_lst.id }} ip address {{ svi | ipaddr('address/prefix') }}
+          add vlan {{ dict_lst.id }} ip address-virtual {{ dict_lst.virtual_mac }} {{ dict_lst.virtual_ip }}/{{ svi |ipaddr('prefix') }}
+          {% endfor %}

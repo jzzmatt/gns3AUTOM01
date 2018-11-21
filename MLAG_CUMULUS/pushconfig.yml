@@ -1,0 +1,20 @@
+---  
+- name: PUSHCONFIG
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: GET FINAL {{ inventory_hostname }} SETUP
+      local_action: >
+            command /bin/cat {{ config_folder }}/{{ inventory_hostname }}.setup
+      register: result
+
+    #- debug:
+    #    var: result.stdout_lines
+
+    - name: SEND CFG LINES TO {{ inventory_hostname }}
+      nclu: commands={{ item }} commit=true
+      with_items: result.stdout_lines
+
+
+  

@@ -1,0 +1,13 @@
+---
+- name: SETUP DOWNLINK 
+  nclu:
+    commit: true
+    description: "SETUP DOWNLINK LEAF"
+    template: |
+         {% for key, values in interfaces.types.bond.items() %}
+         {% if 'leaf' in key %}
+         add bond {{ key }} bond slaves {{ values.ports | join(',') }}
+         add bond {{ key }} clag id {{ values.id }}
+         {% endif %}
+         {% endfor %}
+    

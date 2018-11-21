@@ -1,0 +1,15 @@
+---
+- name: TEST
+  hosts: cVX03
+  gather_facts: no
+  connection: local
+
+  vars:
+    config_f: CFG
+
+  tasks:
+    - name: TESTING
+      template:
+           src: temp_testing.j2
+           dest: "{{ config_f }}/temp_testing.txt"
+

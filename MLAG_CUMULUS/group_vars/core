@@ -1,0 +1,9 @@
+---
+bridges:
+     name: bridge_trunk
+     allowed_vlan: "{{ interfaces.types.vlans | map(attribute='id') |list }}"
+     member: "{{ interfaces.types.bond.keys() }}"
+
+
+
+  

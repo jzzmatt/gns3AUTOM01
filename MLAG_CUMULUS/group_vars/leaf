@@ -1,0 +1,9 @@
+---
+bridges:
+    name: uplink_trunk
+    member: "{{ interfaces.types.bond.keys() + (interfaces.types.server |map(attribute='ports') |list) }}"
+
+vlans: "{{ hostvars[groups['core'][0]].interfaces.types.vlans | map(attribute='id') | join(',') }}"
+   
+   
+

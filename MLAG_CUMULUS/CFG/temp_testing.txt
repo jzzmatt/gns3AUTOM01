@@ -1,0 +1,3 @@
+[{u'access': u'100', u'ports': u'swp3'}, {u'stp': [u'bpduguard', u'portadminedge']}]
+
+

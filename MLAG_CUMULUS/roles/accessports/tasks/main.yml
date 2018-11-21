@@ -1,0 +1,20 @@
+---
+- name: SETUP ACCESS PORT
+  nclu:
+    commit: true
+    description: "SETUP ACCESS PORT "
+    template: |
+          {% set port_list = interfaces.types.server | map(attribute='ports') | list %}
+          {% set vlan = interfaces.types.server | map(attribute='access') | join(',') %}
+          {% set stp_list = interfaces.stp %}
+          {% for port in port_list %}
+          add interface {{ port }} bridge access {{ vlan }}
+          {% endfor %}
+          {% for stp in stp_list %}
+          {% for port in port_list %}
+          add interface {{ port }} stp {{ stp }}
+          {% endfor %}
+          {% endfor %}
+         
+         
+          

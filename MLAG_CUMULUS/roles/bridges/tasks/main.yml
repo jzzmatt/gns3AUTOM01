@@ -1,0 +1,17 @@
+---
+- name: SETUP BRIDGE TRUNK (BRIDGE INSTANCE)
+  nclu:
+    commit: true
+    description: "SETUP BRIDGE TRUNK "
+    template: |
+         {% if inventory_hostname in groups['core'] %}
+         add bridge bridge  ports {{ bridges.member | join(',') }}
+         add bridge alias {{ bridges.name }}
+         add bridge bridge  vids {{ bridges.allowed_vlan | join(',') }}
+         add bridge stp treeprio 16384
+         add bridge bridge  vlan-aware
+         {% else %}
+         add bridge bridge ports {{ bridges.member | join(',') }}
+         add bridge bridge vids {{ vlans }}
+         add bridge bridge pvid 1 
+         {% endif %}

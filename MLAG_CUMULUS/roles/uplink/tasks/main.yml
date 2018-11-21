@@ -1,0 +1,10 @@
+---
+- name: SETUP UPLINK 
+  nclu:
+     commit: true
+     template: |
+          {% for key, values in interfaces.types.bond.items() %}
+          {% if key == 'uplink'%}
+          add bond {{ key }} bond slaves {{ values | join(',') }}
+          {% endif %}
+          {% endfor %}

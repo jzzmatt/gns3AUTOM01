@@ -1,0 +1,35 @@
+---
+- name: SETUP SPINE DEVICE
+  hosts: core
+  gather_facts: no
+  
+
+
+  roles:
+    - interfaces
+    - mlag
+    - vlans
+    - downlink
+    - bridges
+
+- name: SETUP LEAF DEVICE
+  hosts: leaf
+  gather_facts: no
+
+  roles:
+     - interfaces
+     - uplink
+     - bridges
+     - accessports
+     
+    
+
+#- name: ASSEMBLE CONFIG FILE
+#  hosts: all
+#  gather_facts: no
+#  connection: local
+#
+#  tasks:
+#     - assemble:
+#            src: "{{ config_folder }}"
+#            dest: "{{ config_folder }}/{{ inventory_hostname }}.setup"

@@ -1,0 +1,13 @@
+---
+- name: NCLU
+  hosts: cVX01
+  gather_facts: no
+
+  tasks:
+     - name: ADDING INTERFACES
+       nclu:
+          commands:
+                - add int swp1
+                - add int swp2
+                - add int swp3
+                - add int swp4

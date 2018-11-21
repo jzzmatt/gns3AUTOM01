@@ -1,0 +1,20 @@
+---
+- name: PREPARE FOLDER CONFIGURATION
+  hosts: all
+  connection: local
+  gather_facts: no
+
+
+  tasks:
+
+    - name: CLEAN UP CONFIG FOLDER IF EXIST
+      file: path={{ config_folder }} state=absent
+      changed_when: no
+      
+
+    - name: RE CREATE CONFIG FOLDER
+      file: path={{ config_folder }} state=directory
+      changed_when: no
+      
+      
+

@@ -1,0 +1,9 @@
+---
+- name: SETUP SWITCH PORT INTERFACES
+  nclu:
+     commit: true
+     description: "SETUP BOND INTERFACES"
+     template: |
+          {% for iface in range(1,4) %}
+          add int swp{{ iface }}
+          {% endfor %}

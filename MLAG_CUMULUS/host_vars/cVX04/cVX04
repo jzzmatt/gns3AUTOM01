@@ -1,0 +1,17 @@
+---
+ansible_ssh_host: 192.168.122.141
+
+
+interfaces:
+      types:
+         bond:
+           uplink: ['swp1','swp2']
+
+         server:
+              - {ports: 'swp3', access: '200'}
+     
+      stp: ['bpduguard','portadminedge']
+               
+           
+
+

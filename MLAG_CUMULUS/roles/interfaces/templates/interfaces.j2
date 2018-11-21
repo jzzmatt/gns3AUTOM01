@@ -1,0 +1,9 @@
+{% set var_host = hostvars[inventory_hostname] %}
+{% for bondlist in interfaces.types.bond %}
+{% for key, values in bondlist.items() %}
+{% for port in values.ports %}
+net add bond {{ key }} bond slaves {{ port }}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+
