@@ -1,0 +1,15 @@
+ip domain name victoria.local
+crypto key generate rsa general-keys modulus 1024
+ip ssh version 2
+ip scp server enable
+line vty 0 4
+no access-class 55 in
+transport input telnet ssh
+line vty 5 15
+no password
+exec-timeout 15 0
+privilege level 15
+loggin synchronous
+login authentication use-srvtacacs
+length 0
+transport input ssh 
